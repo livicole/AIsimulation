@@ -15,8 +15,10 @@ public class Restart : MonoBehaviour {
 	}
 	
 	public void RestartScene(){
-			mouse.gameObject.SetActive (true);
-			mouse.position = mouseOriginPos;
-			cat.position = catOriginPos;
+		mouse.gameObject.SetActive (true);
+		mouse.position = mouseOriginPos;
+		cat.position = catOriginPos;
+		GameObject blood = GameObject.Find ("blood(Clone)");
+		Destroy (blood.gameObject);
 	}
 }

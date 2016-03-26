@@ -10,6 +10,8 @@ public class CatMove : MonoBehaviour
 	public AudioClip dinoEat;
 	public AudioClip manScream;
 
+	public Transform bloodPrefab;
+
 	//public static bool soundPlayed;
 	float timeSeen;
 
@@ -32,6 +34,7 @@ public class CatMove : MonoBehaviour
 					mouse.gameObject.SetActive (false);
 					soundManager.PlayOneShot (dinoEat, 1f);
 					soundManager.PlayOneShot (manScream, 1f);
+					Instantiate (bloodPrefab, mouse.position, bloodPrefab.rotation);
 				} else if (catRayHitInfo.distance <= 7f) {
 					GetComponent<Rigidbody> ().AddForce (directionToMouse.normalized * 900f);
 					if (Time.time > timeSeen + .2f) {
