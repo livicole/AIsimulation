@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MouseMove : MonoBehaviour {
+public class MouseMove : MonoBehaviour
+{
 
 	public Transform cat;
 	public AudioSource soundManager;
@@ -9,7 +10,8 @@ public class MouseMove : MonoBehaviour {
 
 	float timeSeen;
 
-	void FixedUpdate(){
+	void FixedUpdate ()
+	{
 		Vector3 directionToCat = (cat.position - transform.position);
 		Vector3 forward = transform.forward;
 		float angle = Vector3.Angle (directionToCat, forward);
@@ -18,13 +20,11 @@ public class MouseMove : MonoBehaviour {
 			Ray mouseRay = new Ray (transform.position, directionToCat);
 			RaycastHit mouseRayHitInfo = new RaycastHit ();
 
-			if(Physics.Raycast(mouseRay, out mouseRayHitInfo, 8f)){
-				if(mouseRayHitInfo.collider.tag == "Cat"){
-					GetComponent<Rigidbody>().AddForce(-directionToCat.normalized * 900f);
-					if (Time.time > timeSeen + .8f) {
-						soundManager.PlayOneShot (losScream, 1f);
-						timeSeen = Time.time;
-					}
+			if (Physics.Raycast (mouseRay, out mouseRayHitInfo, 8f) && mouseRayHitInfo.collider.tag == "Cat" && mouseRayHitInfo.distance <= 7f) {
+				GetComponent<Rigidbody> ().AddForce (-directionToCat.normalized * 900f);
+				if (Time.time > timeSeen + .8f) {
+					soundManager.PlayOneShot (losScream, 1f);
+					timeSeen = Time.time;
 				}
 			}
 		}
